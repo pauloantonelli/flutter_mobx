@@ -8,10 +8,19 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   @observable
-  int value = 0;
+  int counter = 0;
 
+  _HomeControllerBase() {
+    auto();
+  }
   @action
-  void increment() {
-    value++;
+  increment() {
+    counter++;
+  }
+
+  auto() {
+    autorun((_) {
+      print(counter);
+    });
   }
 }

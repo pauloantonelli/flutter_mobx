@@ -87,5 +87,5 @@ vars:
   runner: flutter pub run build_runner
 scripts:
   mobb: $runner build
-  mobx: $clean & $get & $runner watch
+  mobx: $runner watch
   mobxc: $clean & $get & $runner build --delete-conflicting-outputs

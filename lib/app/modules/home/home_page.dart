@@ -12,7 +12,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends ModularState<HomePage, HomeController> {
-  //use 'controller' variable to access controller
+  Widget textField(
+      {String labelText, Function onChanged, bool error, String errorMessage}) {
+    return TextField(
+      decoration: InputDecoration(
+          border: OutlineInputBorder(),
+          labelText: labelText,
+          errorText: error ? errorMessage : null),
+      onChanged: onChanged,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,25 +32,47 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 30.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            TextField(
-              decoration: InputDecoration(labelText: 'Nome'),
-              onChanged: controller.changeNome,
-            ),
             SizedBox(
-              height: 20,
-            ),
-            TextField(
-              decoration: InputDecoration(labelText: 'Sobrenome'),
-              onChanged: controller.changeSobreNome,
-            ),
-            SizedBox(
-              height: 20,
+              height: 40.0,
             ),
             Observer(builder: (_) {
-              return Text('${controller.nomeCompleto}');
-            })
+              return this.textField(
+                  labelText: 'Seu nome',
+                  onChanged: controller.changeName,
+                  error: controller.errorName,
+                  errorMessage: controller.errorNameMessage);
+            }),
+            SizedBox(
+              height: 25.0,
+            ),
+            Observer(builder: (_) {
+              return this.textField(
+                  labelText: 'Seu email',
+                  onChanged: controller.changeEmail,
+                  error: controller.errorEmail,
+                  errorMessage: controller.errorEmailMessage);
+            }),
+            SizedBox(
+              height: 25.0,
+            ),
+            Observer(builder: (_) {
+              return this.textField(
+                  labelText: 'Seu cpf',
+                  onChanged: controller.changeCpf,
+                  error: controller.errorCpf,
+                  errorMessage: controller.errorCpfMessage);
+            }),
+            SizedBox(
+              height: 25.0,
+            ),
+            Observer(builder: (_) {
+              return RaisedButton(
+                onPressed: controller.formValid ? () {} : null,
+                child: Text('Salvar'),
+              );
+            }),
           ],
         ),
       ),

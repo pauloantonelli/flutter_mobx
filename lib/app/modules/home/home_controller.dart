@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -8,19 +9,20 @@ class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
   @observable
-  int counter = 0;
+  String nome = '';
+  @observable
+  String sobrenome = '';
 
-  _HomeControllerBase() {
-    auto();
-  }
+  @computed
+  String get nomeCompleto => '$nome $sobrenome';
+
   @action
-  increment() {
-    counter++;
+  changeNome(String novoNome) {
+    nome = novoNome;
   }
 
-  auto() {
-    autorun((_) {
-      print(counter);
-    });
+  @action
+  changeSobreNome(String novoSobrenome) {
+    sobrenome = novoSobrenome;
   }
 }

@@ -19,18 +19,41 @@ final $HomeController = BindInject(
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
-  final _$counterAtom = Atom(name: '_HomeControllerBase.counter');
+  Computed<String> _$nomeCompletoComputed;
 
   @override
-  int get counter {
-    _$counterAtom.reportRead();
-    return super.counter;
+  String get nomeCompleto =>
+      (_$nomeCompletoComputed ??= Computed<String>(() => super.nomeCompleto,
+              name: '_HomeControllerBase.nomeCompleto'))
+          .value;
+
+  final _$nomeAtom = Atom(name: '_HomeControllerBase.nome');
+
+  @override
+  String get nome {
+    _$nomeAtom.reportRead();
+    return super.nome;
   }
 
   @override
-  set counter(int value) {
-    _$counterAtom.reportWrite(value, super.counter, () {
-      super.counter = value;
+  set nome(String value) {
+    _$nomeAtom.reportWrite(value, super.nome, () {
+      super.nome = value;
+    });
+  }
+
+  final _$sobrenomeAtom = Atom(name: '_HomeControllerBase.sobrenome');
+
+  @override
+  String get sobrenome {
+    _$sobrenomeAtom.reportRead();
+    return super.sobrenome;
+  }
+
+  @override
+  set sobrenome(String value) {
+    _$sobrenomeAtom.reportWrite(value, super.sobrenome, () {
+      super.sobrenome = value;
     });
   }
 
@@ -38,11 +61,22 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  dynamic increment() {
+  dynamic changeNome(String novoNome) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.increment');
+        name: '_HomeControllerBase.changeNome');
     try {
-      return super.increment();
+      return super.changeNome(novoNome);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  dynamic changeSobreNome(String novoSobrenome) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.changeSobreNome');
+    try {
+      return super.changeSobreNome(novoSobrenome);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -51,7 +85,9 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-counter: ${counter}
+nome: ${nome},
+sobrenome: ${sobrenome},
+nomeCompleto: ${nomeCompleto}
     ''';
   }
 }

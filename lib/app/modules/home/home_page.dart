@@ -20,25 +20,30 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Observer(
-            builder: (_) {
-              return Center(
-                child: Text(
-                  '${controller.counter}',
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.plus_one),
-        onPressed: () {
-          controller.increment();
-        },
+      body: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 30.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextField(
+              decoration: InputDecoration(labelText: 'Nome'),
+              onChanged: controller.changeNome,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            TextField(
+              decoration: InputDecoration(labelText: 'Sobrenome'),
+              onChanged: controller.changeSobreNome,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Observer(builder: (_) {
+              return Text('${controller.nomeCompleto}');
+            })
+          ],
+        ),
       ),
     );
   }

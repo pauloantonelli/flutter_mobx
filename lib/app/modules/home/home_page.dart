@@ -52,6 +52,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
       appBar: AppBar(
         title: TextField(
           decoration: InputDecoration(hintText: 'Pesquisa...'),
+          onChanged: controller.setFilter,
         ),
       ),
       body: Container(
@@ -63,12 +64,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
             Observer(builder: (_) {
               return SingleChildScrollView(
                 child: SizedBox(
-                  height: MediaQuery.of(context).size.height - 150.0,
+                  height: MediaQuery.of(context).size.height - 200.0,
                   child: ListView.builder(
                       shrinkWrap: false,
-                      itemCount: controller.listItems.length,
+                      itemCount: controller.listFiltered.length,
                       itemBuilder: (_, index) {
-                        final ItemModel item = controller.listItems[index];
+                        final ItemModel item = controller.listFiltered[index];
                         return ItemWidget(
                           itemModel: item,
                           removeItem: () {

@@ -1,6 +1,7 @@
+import 'package:flutter_modular/flutter_modular.dart';
 import 'widgets/item/item_controller.dart';
 import 'home_controller.dart';
-import 'package:flutter_modular/flutter_modular.dart';
+import 'store/pagamento_store.dart';
 
 import 'home_page.dart';
 
@@ -9,6 +10,8 @@ class HomeModule extends ChildModule {
   List<Bind> get binds => [
         $ItemController,
         $HomeController,
+        // stores
+        Bind((i) => PagamentoStoreLocal(), singleton: false),
       ];
 
   @override
